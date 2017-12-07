@@ -1,6 +1,7 @@
 package com.example.ubun.bohdansharipovalexeyulianovassignment4.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.R;
+
+import static com.example.ubun.bohdansharipovalexeyulianovassignment4.activities.MainActivity.SHARED_PREFS;
 
 public class PatientInfoActivity extends AppCompatActivity {
     EditText patientIdET;
@@ -17,6 +20,8 @@ public class PatientInfoActivity extends AppCompatActivity {
     EditText doctorIdET;
     EditText roomET;
     Button editPatientsInfo;
+    Boolean isDoctor;
+    String patientId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,8 @@ public class PatientInfoActivity extends AppCompatActivity {
         final EditText departmentET = (EditText) findViewById(R.id.departmentEditText);;
         final EditText doctorIdET = (EditText) findViewById(R.id.doctorIdEditText);;
         final EditText roomET = (EditText) findViewById(R.id.roomEditText);;
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        isDoctor = prefs.getBoolean("isDoctor", false);
 
         patientIdET.setEnabled(false);
         firstNameET.setEnabled(false);
@@ -39,6 +46,9 @@ public class PatientInfoActivity extends AppCompatActivity {
         Button editPatientsInfo = (Button) findViewById(R.id.btnEditPatient);
         editPatientsInfo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (!isDoctor) {
+                    return;
+                }
                 patientIdET.setEnabled(true);
                 firstNameET.setEnabled(true);
                 lastNameET.setEnabled(true);
@@ -47,6 +57,17 @@ public class PatientInfoActivity extends AppCompatActivity {
                 roomET.setEnabled(true);
             }
         });
+
+        Button checkTest = (Button) findViewById(R.id.btnCheckTest);
+        checkTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PatientInfoActivity.this, PatientTestsActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
     }
 
 }

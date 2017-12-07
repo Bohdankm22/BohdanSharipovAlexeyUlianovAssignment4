@@ -26,4 +26,6 @@ public interface DoctorDao {
     @Update
     void update(Doctor doctor);
 
+    @Query("SELECT * FROM doctor where doctorId = :s and doctor_password = :s1")
+    Doctor getByIdAndPassword(String s, String s1);
 }

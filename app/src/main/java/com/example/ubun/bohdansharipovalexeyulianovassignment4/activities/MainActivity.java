@@ -14,6 +14,8 @@ import com.example.ubun.bohdansharipovalexeyulianovassignment4.R;
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.dao.DoctorDao;
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.database.MyDatabase;
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Doctor;
+import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Nurse;
+import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,63 +24,79 @@ public class MainActivity extends AppCompatActivity {
     public MyDatabase db;
     EditText loginET;
     EditText passwordET;
-    String login;
-    String password;
     public static final String SHARED_PREFS = "SHARED_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
-
+        db = Room.databaseBuilder(getApplicationContext(),
+                MyDatabase.class, "database-name").allowMainThreadQueries().build();
 
         if (db == null) {
-
-            db = Room.databaseBuilder(getApplicationContext(),
-                    MyDatabase.class, "database-name").build();
-
+            Doctor doctor = new Doctor();
+            doctor.setDoctorId(2);
+            doctor.setFirstName("Doc");
+            doctor.setLastName("doc");
+            doctor.setDepartment("Surgery");
+            doctor.setPassword("2");
+            db.doctorDao().insert(doctor);
+            Nurse nurse = new Nurse();
+            nurse.setNurseId(3);
+            nurse.setFirstName("Nurse");
+            nurse.setLastName("Nursovna");
+            nurse.setDepartment("Surgery");
+            nurse.setPassword("3");
+            db.nurseDao().insert(nurse);
+            Patient patient = new Patient();
+            patient.setFirstName("Ivan");
+            patient.setLastName("Ivanov");
+            patient.setDepartment("Surgery");
+            patient.setDoctorId(2);
+            patient.setRoom(123);
+            db.patientDao().insert(patient);
         }
-        final Doctor doctor = new Doctor();
-        doctor.setDoctorId(1);
-        doctor.setFirstName("Ivan");
-        doctor.setLastName("IVa");
-        doctor.setDepartment("Lalal");
-        DoctorDao doctorDao = db.doctorDao();
-        final List<Doctor> list = new ArrayList<>();
-        new AsyncTask<Void, Void, Integer>() {
-            @Override
-            protected Integer doInBackground(Void... params) {
-                list.add(db.doctorDao().getById(1));
-                return 1;
-            }
-        }.execute();
 
-        System.out.println();
-
-        //Log in happens here
-        //TODO error message if wrong/empty credentials
         loginET = (EditText) findViewById(R.id.loginEditText);
         passwordET = (EditText) findViewById(R.id.passEditText);
         final Button button = findViewById(R.id.btnLogin);
+
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO login and put to shared prefs
 
-                editor.putBoolean("isDoctor", true);
-                editor.apply();
-                Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
-                startActivity(intent);
+
+                if (checkCredentials(loginET.getText().toString(), passwordET.getText().toString())
+                        && checkInDB(loginET.getText().toString(), passwordET.getText().toString())) {
+                    Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
+
+
+    }
+
+    private boolean checkInDB(final String s, final String s1) {
+        final SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
+        boolean result = false;
+        Doctor doctor = db.doctorDao().getByIdAndPassword(s, s1);
+        Nurse nurse = db.nurseDao().getByIdAndPassword(s, s1);
+        if (doctor != null) {
+            editor.putBoolean("isDoctor", true);
+            editor.apply();
+            return true;
+        } else if (nurse != null) {
+            editor.putBoolean("isDoctor", false);
+            editor.apply();
+            return true;
+        }
+        return false;
     }
 
 
-    public boolean checkCredentials(View view) {
-        login = loginET.getText().toString();
-        password = passwordET.getText().toString();
-
+    public boolean checkCredentials(String login, String password) {
         if ((login != null && !login.equals("")) && (password != null && !password.equals("")) ) {
             return true;
         } else {
