@@ -67,33 +67,27 @@ public class PatientInfoActivity extends AppCompatActivity {
 //                    return;
 //                }
 
-                if (editPatientsInfo.getText().toString().equals("Edit")) {
-
+                if (editPatientsInfo.getText().toString().toUpperCase().equals("EDIT")) {
+                    firstNameET.setEnabled(true);
+                    lastNameET.setEnabled(true);
+                    departmentET.setEnabled(true);
+                    roomET.setEnabled(true);
+                    editPatientsInfo.setText("SUBMIT");
+                } else if (editPatientsInfo.getText().toString().toUpperCase().equals("SUBMIT")) {
+                    patient.setRoom(Integer.parseInt(roomET.getText().toString()));
+                    patient.setFirstName(firstNameET.getText().toString());
+                    patient.setLastName(lastNameET.getText().toString());
+                    patient.setDepartment(departmentET.getText().toString());
+                    db.patientDao().update(patient);
+                    patientIdET.setEnabled(false);
+                    firstNameET.setEnabled(false);
+                    lastNameET.setEnabled(false);
+                    departmentET.setEnabled(false);
+                    doctorIdET.setEnabled(false);
+                    roomET.setEnabled(false);
+                    editPatientsInfo.setText("EDIT");
                 }
-                firstNameET.setEnabled(true);
-                lastNameET.setEnabled(true);
-                departmentET.setEnabled(true);
-                roomET.setEnabled(true);
 
-                editPatientsInfo.setText("Submit");
-                editPatientsInfo.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        patient.setRoom(Integer.parseInt(roomET.getText().toString()));
-                        patient.setFirstName(firstNameET.getText().toString());
-                        patient.setLastName(lastNameET.getText().toString());
-                        patient.setDepartment(departmentET.getText().toString());
-                        db.patientDao().update(patient);
-                        patientIdET.setEnabled(false);
-                        firstNameET.setEnabled(false);
-                        lastNameET.setEnabled(false);
-                        departmentET.setEnabled(false);
-                        doctorIdET.setEnabled(false);
-                        roomET.setEnabled(false);
-                        editPatientsInfo.setVisibility(View.INVISIBLE);
-                    }
-                });
             }
         });
 

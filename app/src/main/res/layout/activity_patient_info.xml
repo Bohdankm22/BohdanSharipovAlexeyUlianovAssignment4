@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:layout_marginStart="32dp"
-        android:text="Edit Patient Info"
+        android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
