@@ -63,10 +63,6 @@ public class PatientInfoActivity extends AppCompatActivity {
         final Button editPatientsInfo = (Button) findViewById(R.id.btnEditPatient);
         editPatientsInfo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                if (!isDoctor) {
-//                    return;
-//                }
-
                 if (editPatientsInfo.getText().toString().toUpperCase().equals("EDIT")) {
                     firstNameET.setEnabled(true);
                     lastNameET.setEnabled(true);
@@ -87,7 +83,6 @@ public class PatientInfoActivity extends AppCompatActivity {
                     roomET.setEnabled(false);
                     editPatientsInfo.setText("EDIT");
                 }
-
             }
         });
 

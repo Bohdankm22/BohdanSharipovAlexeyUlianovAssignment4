@@ -67,14 +67,18 @@ public class PatientTestsActivity extends AppCompatActivity {
                     test.setBph(Integer.parseInt(bph.getText().toString()));
                     test.setTemperature(Integer.parseInt(temp.getText().toString()));
                     db.testDao().update(test);
-                } else {
+                } else if(!bpl.getText().toString().equals("") && !bph.getText().toString().equals("")
+                        && !temp.getText().toString().equals("")) {
                     Test nTest = new Test();
                     nTest.setPatientId(patientID);
                     nTest.setNurseId(prefs.getInt("nurseId", 1));
                     nTest.setBpl(Integer.parseInt(bpl.getText().toString()));
                     nTest.setBph(Integer.parseInt(bph.getText().toString()));
                     nTest.setTemperature(Integer.parseInt(temp.getText().toString()));
+                    nTest.setTestId(patientID);
                     db.testDao().insert(nTest);
+                } else {
+                    return;
                 }
                 Intent intent = new Intent(PatientTestsActivity.this, PatientInfoActivity.class);
                 intent.putExtra(getString(R.string.patient_id), patientID);

@@ -16,9 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PatientListActivity" />
-        <activity android:name=".activities.PatientInfoActivity" />
-        <activity android:name=".activities.PatientTestsActivity"></activity>
+        <activity android:name=".activities.PatientListActivity"
+            android:parentActivityName="com.example.ubun.bohdansharipovalexeyulianovassignment4.activities.MainActivity"/>
+        <activity android:name=".activities.PatientInfoActivity"
+            android:parentActivityName="com.example.ubun.bohdansharipovalexeyulianovassignment4.activities.PatientListActivity"/>
+        <activity android:name=".activities.PatientTestsActivity"
+            android:parentActivityName="com.example.ubun.bohdansharipovalexeyulianovassignment4.activities.PatientListActivity"/>
     </application>
 
 </manifest>
