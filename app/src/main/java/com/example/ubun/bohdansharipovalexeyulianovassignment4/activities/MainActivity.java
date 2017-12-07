@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
                 if (checkCredentials(loginET.getText().toString(), passwordET.getText().toString())
                         && checkInDB(loginET.getText().toString(), passwordET.getText().toString())) {
                     Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
@@ -112,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (nurse != null) {
             editor.putBoolean("isDoctor", false);
+            editor.putInt("nurseId", nurse.getNurseId());
             editor.apply();
             return true;
         }

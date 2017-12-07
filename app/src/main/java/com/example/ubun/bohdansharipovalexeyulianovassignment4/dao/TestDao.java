@@ -22,4 +22,7 @@ public interface TestDao {
 
     @Update
     void update(Test test);
+
+    @Query("SELECT * FROM test where patient_id = :patientId")
+    Test getTestByPatientID(int patientId);
 }

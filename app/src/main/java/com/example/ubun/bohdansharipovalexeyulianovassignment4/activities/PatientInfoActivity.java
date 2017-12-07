@@ -32,7 +32,7 @@ public class PatientInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-        int patientID = getIntent().getIntExtra(getString(R.string.patient_id), 0);
+        final int patientID = getIntent().getIntExtra(getString(R.string.patient_id), 0);
         final MyDatabase db = Room.databaseBuilder(getApplicationContext(),
                 MyDatabase.class, "database-name").allowMainThreadQueries().build();
         final Patient patient = db.patientDao().getById(patientID);
@@ -66,6 +66,10 @@ public class PatientInfoActivity extends AppCompatActivity {
 //                if (!isDoctor) {
 //                    return;
 //                }
+
+                if (editPatientsInfo.getText().toString().equals("Edit")) {
+
+                }
                 firstNameET.setEnabled(true);
                 lastNameET.setEnabled(true);
                 departmentET.setEnabled(true);
@@ -93,11 +97,16 @@ public class PatientInfoActivity extends AppCompatActivity {
             }
         });
 
+
         Button checkTest = (Button) findViewById(R.id.btnCheckTest);
+        if (!isDoctor) {
+            checkTest.setText("Add test results");
+        }
         checkTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PatientInfoActivity.this, PatientTestsActivity.class);
+                intent.putExtra(getString(R.string.patient_id), patientID);
                 startActivity(intent);
             }
 

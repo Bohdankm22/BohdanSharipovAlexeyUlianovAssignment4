@@ -40,7 +40,7 @@ public class PatientListActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(PatientListActivity.this, "Button " + v.getId() + " clicked", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PatientListActivity.this, "Button " + v.getId() + " clicked", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PatientListActivity.this, PatientInfoActivity.class);
                     intent.putExtra(getString(R.string.patient_id), patients.get(j).getPatientId());
                     startActivity(intent);
