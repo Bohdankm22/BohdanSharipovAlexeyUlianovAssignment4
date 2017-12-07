@@ -6,7 +6,6 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Doctor;
-import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Nurse;
 
 import java.util.List;
 
