@@ -55,7 +55,32 @@ public class MainActivity extends AppCompatActivity {
             patient.setDoctorId(2);
             patient.setRoom(123);
             db.patientDao().insert(patient);
+            patient = new Patient();
+            patient.setPatientId(6);
+            patient.setFirstName("Giraf");
+            patient.setLastName("Petrovich");
+            patient.setDepartment("Therapy");
+            patient.setDoctorId(1);
+            patient.setRoom(34);
+            db.patientDao().insert(patient);
+            patient = new Patient();
+            patient.setPatientId(4);
+            patient.setFirstName("Lana");
+            patient.setLastName("Del ray");
+            patient.setDepartment("Surgery");
+            patient.setDoctorId(2);
+            patient.setRoom(54);
+            db.patientDao().insert(patient);
+            patient = new Patient();
+            patient.setPatientId(5);
+            patient.setFirstName("Gaga");
+            patient.setLastName("Maga");
+            patient.setDepartment("Therapy");
+            patient.setDoctorId(1);
+            patient.setRoom(32);
+            db.patientDao().insert(patient);
         }
+
 
         loginET = (EditText) findViewById(R.id.loginEditText);
         passwordET = (EditText) findViewById(R.id.passEditText);
@@ -73,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
     }
 

@@ -22,4 +22,7 @@ public interface PatientDao {
 
     @Update
     void update(Patient patient);
+
+    @Query("SELECT * FROM patient where patientId = :patientID")
+    Patient getById(int patientID);
 }

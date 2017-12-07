@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BohdanSharipovAlexeyUlianovAssignment4</string>
+    <string name="patient_id">patienID</string>
 </resources>
