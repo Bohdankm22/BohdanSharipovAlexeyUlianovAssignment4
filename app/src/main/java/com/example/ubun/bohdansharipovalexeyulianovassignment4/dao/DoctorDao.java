@@ -17,6 +17,9 @@ public interface DoctorDao {
     @Query("SELECT * FROM doctor")
     List<Doctor> getAll();
 
+    @Query("SELECT * FROM doctor where doctorId = :id")
+    Doctor getById(int id);
+
     @Insert
     void insert(Doctor doctor);
 
