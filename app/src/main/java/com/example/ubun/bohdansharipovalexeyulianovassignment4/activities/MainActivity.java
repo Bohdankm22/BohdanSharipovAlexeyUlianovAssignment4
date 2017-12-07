@@ -2,6 +2,7 @@ package com.example.ubun.bohdansharipovalexeyulianovassignment4.activities;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +24,15 @@ public class MainActivity extends AppCompatActivity {
     EditText passwordET;
     String login;
     String password;
-
+    public static final String SHARED_PREFS = "SHARED_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
+
+
         if (db == null) {
 
             db = Room.databaseBuilder(getApplicationContext(),
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO login and put to shared prefs
+
+                editor.putBoolean("isDoctor", true);
+                editor.apply();
                 Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
                 startActivity(intent);
             }
