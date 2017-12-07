@@ -1,6 +1,7 @@
 package com.example.ubun.bohdansharipovalexeyulianovassignment4.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.example.ubun.bohdansharipovalexeyulianovassignment4.entities.Doctor;
@@ -15,4 +16,7 @@ import java.util.List;
 public interface PatientDao {
     @Query("SELECT * FROM Patient")
     List<Patient> getAll();
+
+    @Insert
+    void insert(Patient patient);
 }

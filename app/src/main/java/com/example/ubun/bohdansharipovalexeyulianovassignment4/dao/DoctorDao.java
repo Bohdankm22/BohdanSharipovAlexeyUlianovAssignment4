@@ -17,6 +17,5 @@ public interface DoctorDao {
     List<Doctor> getAll();
 
     @Insert
-    @Query("SELECT * FROM doctor")
     void insert(Doctor doctor);
 }
